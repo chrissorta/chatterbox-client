@@ -13,9 +13,10 @@ var FormView = {
     var newMessage = {};
     newMessage.username = App.username;
     newMessage.text = $("#message").val();
-    newMessage.roomname = "Jorgen's room";   //RoomsView.$select;
+    newMessage.roomname = RoomsView.$select.val();   //RoomsView.$select;
     //newMessage.createdAt = Date.now();
-    Parse.create(newMessage, () => MessagesView.renderMessage(newMessage));
+    Parse.create(newMessage, () => MessagesView.renderMessage(newMessage)); //Here we can get back date from parse.create to get our single post back and render it from the server
+
     //parse.crate post
     //success callback: Messageviews.renderMessage(message)
 

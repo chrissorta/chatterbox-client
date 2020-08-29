@@ -4,12 +4,12 @@ var App = {
 
   username: 'anonymous',
 
-  initialize: function() {
+  initialize: function () {
     App.username = window.location.search.substr(10);
 
     FormView.initialize();
     RoomsView.initialize();
-    setTimeout(MessagesView.initialize.bind(MessagesView), 1000);
+    MessagesView.initialize();
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
@@ -17,23 +17,23 @@ var App = {
 
   },
 
-  fetch: function(callback = ()=>{}) {
+  fetch: function (callback = () => { }) {
     Parse.readAll((data) => {
       // examine the response from the server request:
       // console.log('working, ', Date.now());
       Messages.data = data.results;
-
+      MessagesView.render(Messages.data);
       callback();
 
     });
   },
 
-  startSpinner: function() {
+  startSpinner: function () {
     App.$spinner.show();
     FormView.setStatus(true);
   },
 
-  stopSpinner: function() {
+  stopSpinner: function () {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
   }
